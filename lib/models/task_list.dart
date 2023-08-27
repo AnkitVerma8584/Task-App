@@ -18,7 +18,7 @@ class TaskList extends ChangeNotifier {
       ],
       attachments: [],
       taskColor: Colors.blue,
-      priority: Priority.high(),
+      priority: Priority.high,
     ),
     Task(
       taskName: "Marketing website",
@@ -34,7 +34,7 @@ class TaskList extends ChangeNotifier {
       ],
       attachments: [],
       taskColor: Colors.orange,
-      priority: Priority.medium(),
+      priority: Priority.medium,
     )
   ];
 

@@ -56,13 +56,12 @@ class _TaskFormPageState extends State<TaskFormPage> {
 
   late DateTime startDate, endDate;
   late TimeOfDay startTime, endTime;
-  Priority priority = Priority.low();
+  Priority priority = Priority.low;
   late MaterialColor colors;
 
   @override
   void initState() {
     super.initState();
-    colors = Colors.amber;
     startDate = DateTime.now();
     endDate = startDate.add(const Duration(days: 1));
   }
@@ -89,8 +88,6 @@ class _TaskFormPageState extends State<TaskFormPage> {
 
   @override
   Widget build(BuildContext context) {
-    final navigator = Navigator.of(context);
-
     final TextStyle headerStyle = TextStyle(
         color: getColorsScheme(context).onBackground.withOpacity(0.5),
         fontSize: 12);
@@ -206,7 +203,9 @@ class _TaskFormPageState extends State<TaskFormPage> {
                   sh30,
                   Text('Pick task color', style: headerStyle),
                   sh12,
-                  const TaskColorList(),
+                  TaskColorList(
+                    onColorSelected: (val) => colors = val,
+                  ),
                   sh12,
                   const Divider(thickness: 2),
                   sh30,
@@ -255,7 +254,7 @@ class _TaskFormPageState extends State<TaskFormPage> {
               )),
         ),
       )),
-      SubmitTaskButton(onSubmitPress: () async {
+      SubmitTaskButton(onSubmitPress: () {
         if (_formKey.currentState!.validate()) {
           Task task = Task(
             taskName: _controllerMap['task_name']!.text,
@@ -274,8 +273,8 @@ class _TaskFormPageState extends State<TaskFormPage> {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Task added')),
           );
-          await Future.delayed(const Duration(seconds: 2));
-          navigator.pop();
+          Future.delayed(const Duration(seconds: 2))
+              .then((value) => Navigator.pop(context));
         }
       })
     ]);

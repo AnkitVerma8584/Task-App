@@ -13,11 +13,6 @@ class TaskPriorityButtons extends StatefulWidget {
 }
 
 class _TaskPriorityButtonsState extends State<TaskPriorityButtons> {
-  final List<Priority> priorityList = [
-    Priority.low(),
-    Priority.medium(),
-    Priority.high()
-  ];
   int selectedIndex = 0;
 
   BoxDecoration getDecoration(Priority priority, bool isSelected) {
@@ -32,12 +27,12 @@ class _TaskPriorityButtonsState extends State<TaskPriorityButtons> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: List.generate(priorityList.length, (index) {
-        Priority priority = priorityList[index];
+      children: List.generate(Priority.values.length, (index) {
+        Priority priority = Priority.values[index];
         return GestureDetector(
             onTap: () => setState(() {
                   selectedIndex = index;
-                  widget.onPrioritySelected(priorityList[index]);
+                  widget.onPrioritySelected(Priority.values[index]);
                 }),
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
