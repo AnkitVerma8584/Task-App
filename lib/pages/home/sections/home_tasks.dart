@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:task_app/components/sized_boxes.dart';
-import 'package:task_app/models/task.dart';
+import 'package:provider/provider.dart';
+import 'package:task_app/common/components/sized_boxes.dart';
+import 'package:task_app/models/task_list.dart';
 import 'package:task_app/pages/home/widgets/task_card.dart';
 
 class HomeOnGoingTasks extends StatelessWidget {
@@ -24,19 +25,12 @@ class HomeOnGoingTasks extends StatelessWidget {
           ),
           sh12,
           Expanded(
-            child: ListView.builder(
-                itemCount: dummyTaskList.length,
-                itemBuilder: (context, index) {
-                  var item = dummyTaskList[index];
-                  return HomeTaskCard(
-                    taskName: item.taskName,
-                    time: item.time,
-                    dueDate: item.dueDate,
-                    completionPercentage: item.completionPercentage,
-                    collaborators: item.collaborators,
-                    priority: item.priority,
-                  );
-                }),
+            child: Consumer<TaskList>(
+              builder: (context, value, child) => ListView.builder(
+                  itemCount: value.taskList.length,
+                  itemBuilder: (context, index) =>
+                      HomeTaskCard(task: value.taskList[index])),
+            ),
           ),
         ],
       ),

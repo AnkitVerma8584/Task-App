@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:task_app/models/task_list.dart';
 import 'package:task_app/pages/base.dart';
 import 'package:task_app/theme/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider<TaskList>(
+    create: (_) => TaskList(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -12,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Task App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           useMaterial3: true,

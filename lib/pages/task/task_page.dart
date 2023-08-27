@@ -1,6 +1,19 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../../components/sized_boxes.dart';
+import 'package:provider/provider.dart';
+import 'package:task_app/common/utils.dart';
+import 'package:task_app/models/priority.dart';
+import 'package:task_app/models/task.dart';
+import 'package:task_app/models/task_list.dart';
+import 'package:task_app/pages/task/widgets/submit_button.dart';
+import 'package:task_app/pages/task/widgets/task_assign.dart';
+import 'package:task_app/pages/task/widgets/task_attachment.dart';
+import 'package:task_app/pages/task/widgets/task_color.dart';
+import 'package:task_app/pages/task/widgets/task_priority.dart';
+import 'package:task_app/theme/colors.dart';
+import 'package:time_range_picker/time_range_picker.dart';
+import '../../common/components/sized_boxes.dart';
 
 class TaskPage extends StatelessWidget {
   const TaskPage({super.key});
@@ -38,9 +51,21 @@ class _TaskFormPageState extends State<TaskFormPage> {
     'start_date': TextEditingController(),
     'end_date': TextEditingController(),
     'task_description': TextEditingController(),
+    'tast_time': TextEditingController()
   };
-  DateTime startDate = DateTime.now();
-  DateTime endDate = DateTime.now();
+
+  late DateTime startDate, endDate;
+  late TimeOfDay startTime, endTime;
+  Priority priority = Priority.low();
+  late MaterialColor colors;
+
+  @override
+  void initState() {
+    super.initState();
+    colors = Colors.amber;
+    startDate = DateTime.now();
+    endDate = startDate.add(const Duration(days: 1));
+  }
 
   @override
   void dispose() {
@@ -64,6 +89,11 @@ class _TaskFormPageState extends State<TaskFormPage> {
 
   @override
   Widget build(BuildContext context) {
+    final navigator = Navigator.of(context);
+
+    final TextStyle headerStyle = TextStyle(
+        color: getColorsScheme(context).onBackground.withOpacity(0.5),
+        fontSize: 12);
     return Stack(children: [
       Positioned.fill(
           child: SingleChildScrollView(
@@ -72,31 +102,29 @@ class _TaskFormPageState extends State<TaskFormPage> {
           child: Form(
               key: _formKey,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text('Task Name', style: headerStyle),
                   TextFormField(
                     controller: _controllerMap['task_name'],
                     decoration: InputDecoration(
-                        label: const Text('Task Name'),
-                        border: const OutlineInputBorder(),
                         suffixIcon: IconButton(
                             onPressed: () =>
                                 _controllerMap['task_name']?.clear(),
                             icon: const Icon(Icons.clear))),
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Required*';
-                      }
-                      return null;
+                      return (value == null || value.isEmpty)
+                          ? 'Required*'
+                          : null;
                     },
                   ),
-                  sh24,
+                  sh30,
+                  Text('Start Date', style: headerStyle),
                   TextFormField(
                     controller: _controllerMap['start_date'],
                     readOnly: true,
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
-                        label: const Text('Start Date'),
-                        border: const OutlineInputBorder(),
                         suffixIcon: IconButton(
                             onPressed: () async {
                               var value = await _selectDate(
@@ -112,17 +140,19 @@ class _TaskFormPageState extends State<TaskFormPage> {
                       if (value == null || value.isEmpty) {
                         return 'Required*';
                       }
+                      if (startDate.isAfter(endDate)) {
+                        return 'Start date should be before end date';
+                      }
                       return null;
                     },
                   ),
-                  sh24,
+                  sh30,
+                  Text('End Date', style: headerStyle),
                   TextFormField(
                     readOnly: true,
                     controller: _controllerMap['end_date'],
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
-                        label: const Text('End Date'),
-                        border: const OutlineInputBorder(),
                         suffixIcon: IconButton(
                             onPressed: () async {
                               var value = await _selectDate(
@@ -138,21 +168,75 @@ class _TaskFormPageState extends State<TaskFormPage> {
                       if (value == null || value.isEmpty) {
                         return 'Required*';
                       }
+                      if (endDate.isBefore(startDate)) {
+                        return 'End date should be after start date';
+                      }
                       return null;
                     },
                   ),
-                  sh24,
+                  sh30,
+                  Text('Description', style: headerStyle),
                   TextFormField(
                     maxLines: 3,
                     controller: _controllerMap['task_description'],
                     decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      label: const Text('Description'),
                       suffixIcon: IconButton(
                           onPressed: () =>
                               _controllerMap['task_description']?.clear(),
                           icon: const Icon(Icons.clear)),
                     ),
+                    validator: (value) {
+                      return (value == null || value.isEmpty)
+                          ? 'Required*'
+                          : null;
+                    },
+                  ),
+                  sh30,
+                  Text('Assign to', style: headerStyle),
+                  sh12,
+                  const TaskAssignList(),
+                  sh12,
+                  const Divider(thickness: 2),
+                  sh30,
+                  Text('Add attachments', style: headerStyle),
+                  sh12,
+                  const TaskAttachmentList(),
+                  sh12,
+                  const Divider(thickness: 2),
+                  sh30,
+                  Text('Pick task color', style: headerStyle),
+                  sh12,
+                  const TaskColorList(),
+                  sh12,
+                  const Divider(thickness: 2),
+                  sh30,
+                  Text('Select time', style: headerStyle),
+                  TextFormField(
+                    readOnly: true,
+                    controller: _controllerMap['tast_time'],
+                    textInputAction: TextInputAction.next,
+                    decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                            onPressed: () async {
+                              TimeRange result = await showTimeRangePicker(
+                                  context: context,
+                                  use24HourFormat: false,
+                                  labels: [
+                                    ClockLabel.fromDegree(
+                                        deg: -90, text: "12:00 PM"),
+                                    ClockLabel.fromDegree(
+                                        deg: 90, text: "12:00 AM"),
+                                    ClockLabel.fromDegree(
+                                        deg: 0, text: "06:00 PM"),
+                                    ClockLabel.fromDegree(
+                                        deg: 180, text: "06:00 AM"),
+                                  ]);
+                              startTime = result.startTime;
+                              endTime = result.endTime;
+                              _controllerMap['tast_time']!.text =
+                                  "${formatTimeOfDay(startTime)} - ${formatTimeOfDay(endTime)}";
+                            },
+                            icon: const Icon(CupertinoIcons.clock))),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Required*';
@@ -160,31 +244,40 @@ class _TaskFormPageState extends State<TaskFormPage> {
                       return null;
                     },
                   ),
+                  sh30,
+                  Text('Select task priority', style: headerStyle),
+                  sh12,
+                  TaskPriorityButtons(
+                      onPrioritySelected: (val) => priority = val),
+                  sh30,
+                  sh30,
                 ],
               )),
         ),
       )),
-      Positioned(
-        bottom: 16,
-        left: 16,
-        right: 16,
-        child: ElevatedButton(
-          onPressed: () {
-            if (_formKey.currentState!.validate()) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Processing Data')),
-              );
-            }
-          },
-          child: const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(
-              "Create Task",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-            ),
-          ),
-        ),
-      )
+      SubmitTaskButton(onSubmitPress: () async {
+        if (_formKey.currentState!.validate()) {
+          Task task = Task(
+            taskName: _controllerMap['task_name']!.text,
+            taskDescription: _controllerMap['task_description']!.text,
+            startDate: startDate,
+            endDate: endDate,
+            startTime: startTime,
+            endTime: endTime,
+            completionPercentage: 0,
+            collaborators: ["assets/users/p3.png", "assets/users/p1.png"],
+            attachments: [],
+            taskColor: colors,
+            priority: priority,
+          );
+          Provider.of<TaskList>(context, listen: false).addTask(task);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Task added')),
+          );
+          await Future.delayed(const Duration(seconds: 2));
+          navigator.pop();
+        }
+      })
     ]);
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:task_app/components/sized_boxes.dart';
+import 'package:task_app/common/components/sized_boxes.dart';
 import 'package:task_app/pages/home/sections/home_header.dart';
 import 'package:task_app/pages/home/sections/home_tasks.dart';
 import 'package:task_app/pages/home/sections/home_widget.dart';

@@ -9,3 +9,4 @@ const sh8 = SizedBox(height: 8);
 const sh12 = SizedBox(height: 12);
 const sh16 = SizedBox(height: 16);
 const sh24 = SizedBox(height: 24);
+const sh30 = SizedBox(height: 30);

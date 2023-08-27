@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:task_app/components/sized_boxes.dart';
+import 'package:task_app/common/components/sized_boxes.dart';
 import 'package:task_app/pages/calendar/calendar_page.dart';
 import 'package:task_app/pages/message/message_page.dart';
 import 'package:task_app/pages/profile/profile_page.dart';
 import 'package:task_app/pages/task/task_page.dart';
+import 'package:task_app/theme/colors.dart';
 import 'home/home_page.dart';
 
 class BaseScreen extends StatefulWidget {
@@ -24,7 +25,7 @@ class _BaseScreenState extends State<BaseScreen> {
   ];
 
   Color? getColor(isSelected) {
-    return isSelected ? Colors.amber : Colors.grey;
+    return isSelected ? getColorsScheme(context).primary : Colors.grey;
   }
 
   @override
@@ -45,44 +46,43 @@ class _BaseScreenState extends State<BaseScreen> {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
             child: const Icon(Icons.add),
           ),
-          bottomNavigationBar: BottomAppBar(
-            shape: const AutomaticNotchedShape(
-              RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(30))),
-              StadiumBorder(),
+          bottomNavigationBar: ClipRRect(
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
+            child: BottomAppBar(
+              notchMargin: 6.0,
+              shape: const CircularNotchedRectangle(),
+              clipBehavior: Clip.antiAlias,
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    IconButton(
+                        onPressed: () => setState(() {
+                              selectedIndex = 0;
+                            }),
+                        icon: Icon(Icons.home_outlined,
+                            color: getColor(selectedIndex == 0))),
+                    IconButton(
+                        onPressed: () => setState(() {
+                              selectedIndex = 1;
+                            }),
+                        icon: Icon(CupertinoIcons.calendar,
+                            color: getColor(selectedIndex == 1))),
+                    sw12,
+                    IconButton(
+                        onPressed: () => setState(() {
+                              selectedIndex = 2;
+                            }),
+                        icon: Icon(Icons.message_outlined,
+                            color: getColor(selectedIndex == 2))),
+                    IconButton(
+                        onPressed: () => setState(() {
+                              selectedIndex = 3;
+                            }),
+                        icon: Icon(Icons.person_4_outlined,
+                            color: getColor(selectedIndex == 3))),
+                  ]),
             ),
-            clipBehavior: Clip.antiAlias,
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  IconButton(
-                      onPressed: () => setState(() {
-                            selectedIndex = 0;
-                          }),
-                      icon: Icon(Icons.home_outlined,
-                          color: getColor(selectedIndex == 0))),
-                  IconButton(
-                      onPressed: () => setState(() {
-                            selectedIndex = 1;
-                          }),
-                      icon: Icon(CupertinoIcons.calendar,
-                          color: getColor(selectedIndex == 1))),
-                  sw12,
-                  IconButton(
-                      onPressed: () => setState(() {
-                            selectedIndex = 2;
-                          }),
-                      icon: Icon(Icons.message_outlined,
-                          color: getColor(selectedIndex == 2))),
-                  IconButton(
-                      onPressed: () => setState(() {
-                            selectedIndex = 3;
-                          }),
-                      icon: Icon(Icons.person_4_outlined,
-                          color: getColor(selectedIndex == 3))),
-                ]),
           )),
     );
   }
