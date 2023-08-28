@@ -22,11 +22,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           useMaterial3: true,
           colorScheme: lightColorScheme,
-          fontFamily: GoogleFonts.lato().fontFamily),
+          fontFamily: GoogleFonts.poppins().fontFamily),
       darkTheme: ThemeData(
           useMaterial3: true,
           colorScheme: darkColorScheme,
-          fontFamily: GoogleFonts.lato().fontFamily),
+          fontFamily: GoogleFonts.poppins().fontFamily),
       home: const BaseScreen(),
     );
   }

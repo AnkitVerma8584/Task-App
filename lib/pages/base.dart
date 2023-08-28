@@ -4,7 +4,7 @@ import 'package:task_app/common/components/sized_boxes.dart';
 import 'package:task_app/pages/calendar/calendar_page.dart';
 import 'package:task_app/pages/message/message_page.dart';
 import 'package:task_app/pages/profile/profile_page.dart';
-import 'package:task_app/pages/task/task_page.dart';
+import 'package:task_app/pages/task_add/task_add_screen.dart';
 import 'package:task_app/theme/colors.dart';
 import 'home/home_page.dart';
 
@@ -37,8 +37,8 @@ class _BaseScreenState extends State<BaseScreen> {
               FloatingActionButtonLocation.centerDocked,
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => const TaskPage()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (_) => const TaskAddScreen()));
             },
             tooltip: 'New Task',
             elevation: 2,

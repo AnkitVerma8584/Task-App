@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:task_app/models/priority.dart';
+import 'package:task_app/models/enums/priority.dart';
 
 class TaskPriorityButtons extends StatefulWidget {
   const TaskPriorityButtons({

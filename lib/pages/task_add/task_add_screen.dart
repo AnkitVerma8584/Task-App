@@ -3,20 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:task_app/common/utils.dart';
-import 'package:task_app/models/priority.dart';
+import 'package:task_app/models/enums/priority.dart';
+import 'package:task_app/models/enums/task_colors.dart';
 import 'package:task_app/models/task.dart';
 import 'package:task_app/models/task_list.dart';
-import 'package:task_app/pages/task/widgets/submit_button.dart';
-import 'package:task_app/pages/task/widgets/task_assign.dart';
-import 'package:task_app/pages/task/widgets/task_attachment.dart';
-import 'package:task_app/pages/task/widgets/task_color.dart';
-import 'package:task_app/pages/task/widgets/task_priority.dart';
+import 'package:task_app/pages/task_add/widgets/submit_button.dart';
+import 'package:task_app/pages/task_add/widgets/task_assign.dart';
+import 'package:task_app/pages/task_add/widgets/task_attachment.dart';
+import 'package:task_app/pages/task_add/widgets/task_color.dart';
+import 'package:task_app/pages/task_add/widgets/task_priority.dart';
 import 'package:task_app/theme/colors.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 import '../../common/components/sized_boxes.dart';
 
-class TaskPage extends StatelessWidget {
-  const TaskPage({super.key});
+class TaskAddScreen extends StatelessWidget {
+  const TaskAddScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +58,7 @@ class _TaskFormPageState extends State<TaskFormPage> {
   late DateTime startDate, endDate;
   late TimeOfDay startTime, endTime;
   Priority priority = Priority.low;
-  late MaterialColor colors;
+  late TaskColor taskColor;
 
   @override
   void initState() {
@@ -204,7 +205,7 @@ class _TaskFormPageState extends State<TaskFormPage> {
                   Text('Pick task color', style: headerStyle),
                   sh12,
                   TaskColorList(
-                    onColorSelected: (val) => colors = val,
+                    onColorSelected: (val) => taskColor = val,
                   ),
                   sh12,
                   const Divider(thickness: 2),
@@ -233,7 +234,7 @@ class _TaskFormPageState extends State<TaskFormPage> {
                               startTime = result.startTime;
                               endTime = result.endTime;
                               _controllerMap['tast_time']!.text =
-                                  "${formatTimeOfDay(startTime)} - ${formatTimeOfDay(endTime)}";
+                                  "${startTime.formatTimeOfDay()} - ${endTime.formatTimeOfDay()}";
                             },
                             icon: const Icon(CupertinoIcons.clock))),
                     validator: (value) {
@@ -266,7 +267,7 @@ class _TaskFormPageState extends State<TaskFormPage> {
             completionPercentage: 0,
             collaborators: ["assets/users/p3.png", "assets/users/p1.png"],
             attachments: [],
-            taskColor: colors,
+            taskColor: taskColor,
             priority: priority,
           );
           Provider.of<TaskList>(context, listen: false).addTask(task);

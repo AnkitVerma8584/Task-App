@@ -1,12 +1,11 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:task_app/common/components/sized_boxes.dart';
-import 'package:task_app/theme/colors.dart';
 
 class TaskAttachmentList extends StatelessWidget {
   const TaskAttachmentList({super.key});
 
-  final List<String> collaborators = const [
+  final List<String> attachments = const [
     "assets/users/p1.png",
     "assets/users/p2.png",
     "assets/users/p3.png",
@@ -38,13 +37,13 @@ class TaskAttachmentList extends StatelessWidget {
           child: Flex(
             direction: Axis.horizontal,
             children: List.generate(
-                collaborators.length,
+                attachments.length,
                 (index) => Padding(
                       padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8),
                         child: Image.asset(
-                          collaborators[index],
+                          attachments[index],
                           fit: BoxFit.cover,
                           height: 50,
                           width: 50,

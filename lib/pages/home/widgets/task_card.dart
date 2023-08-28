@@ -1,10 +1,7 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:task_app/common/utils.dart';
 import 'package:task_app/models/task.dart';
-
 import '../../../common/components/sized_boxes.dart';
 
 class HomeTaskCard extends StatelessWidget {
@@ -52,7 +49,7 @@ class HomeTaskCard extends StatelessWidget {
                 ),
                 sw8,
                 Text(
-                  "${formatTimeOfDay(task.startTime)} - ${formatTimeOfDay(task.endTime)}",
+                  task.time,
                   style: const TextStyle(
                     color: Colors.grey,
                     fontSize: 12,
@@ -70,7 +67,7 @@ class HomeTaskCard extends StatelessWidget {
                     fontSize: 12,
                   ),
                 ),
-                Text(DateFormat.yMMMd().format(task.endDate)),
+                Text(task.endDate.toyMMMD()),
                 const Spacer(),
                 SizedBox(
                   width: 65,

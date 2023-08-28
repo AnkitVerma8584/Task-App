@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-String formatTimeOfDay(TimeOfDay tod) {
-  final now = DateTime.now();
-  final dt = DateTime(now.year, now.month, now.day, tod.hour, tod.minute);
-  final format = DateFormat.jm();
-  return format.format(dt);
+extension FormatTimeOfDay on TimeOfDay {
+  String formatTimeOfDay() {
+    final now = DateTime.now();
+    final dt = DateTime(now.year, now.month, now.day, hour, minute);
+    final format = DateFormat.jm();
+    return format.format(dt);
+  }
+}
+
+extension ToyMMMD on DateTime {
+  String toyMMMD() => DateFormat.yMMMd().format(this);
 }

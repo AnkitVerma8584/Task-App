@@ -34,8 +34,8 @@ class TaskAssignList extends StatelessWidget {
       Expanded(
         child: SizedBox(
           height: 50,
-          child: Stack(children: [
-            ...List.generate(
+          child: Stack(
+            children: List.generate(
                 collaborators.length,
                 (index) => Positioned(
                       left: index * 30,
@@ -56,7 +56,7 @@ class TaskAssignList extends StatelessWidget {
                         ),
                       ),
                     )),
-          ]),
+          ),
         ),
       )
     ]);

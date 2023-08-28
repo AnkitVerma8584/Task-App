@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:task_app/models/priority.dart';
+import 'package:task_app/models/enums/priority.dart';
+import 'package:task_app/models/enums/task_colors.dart';
 import 'package:task_app/models/task.dart';
 
 class TaskList extends ChangeNotifier {
@@ -15,9 +16,18 @@ class TaskList extends ChangeNotifier {
       collaborators: [
         "assets/users/p1.png",
         "assets/users/p2.png",
+        "assets/users/p3.png",
+        "assets/users/p4.png",
+        "assets/users/p5.png",
+        "assets/users/p6.png",
       ],
-      attachments: [],
-      taskColor: Colors.blue,
+      attachments: [
+        "assets/users/p3.png",
+        "assets/users/p4.png",
+        "assets/users/p5.png",
+        "assets/users/p6.png",
+      ],
+      taskColor: TaskColor.lightPurple,
       priority: Priority.high,
     ),
     Task(
@@ -32,8 +42,13 @@ class TaskList extends ChangeNotifier {
         "assets/users/p3.png",
         "assets/users/p4.png",
       ],
-      attachments: [],
-      taskColor: Colors.orange,
+      attachments: [
+        "assets/users/p1.png",
+        "assets/users/p2.png",
+        "assets/users/p5.png",
+        "assets/users/p6.png",
+      ],
+      taskColor: TaskColor.lightYellow,
       priority: Priority.medium,
     )
   ];
