@@ -265,8 +265,17 @@ class _TaskFormPageState extends State<TaskFormPage> {
             startTime: startTime,
             endTime: endTime,
             completionPercentage: 0,
-            collaborators: ["assets/users/p3.png", "assets/users/p1.png"],
-            attachments: [],
+            collaborators: [
+              "assets/users/p3.png",
+              "assets/users/p1.png",
+              "assets/users/p2.png",
+              "assets/users/p6.png",
+            ],
+            attachments: [
+              "assets/users/p3.png",
+              "assets/users/p1.png",
+              "assets/users/p2.png",
+            ],
             taskColor: taskColor,
             priority: priority,
           );

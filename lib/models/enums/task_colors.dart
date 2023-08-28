@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 
 enum TaskColor {
-  lightRed(colorName: "Light Red", colorCode: Color.fromRGBO(255, 205, 210, 1)),
-  lightPurple(
-      colorName: "Light Purple", colorCode: Color.fromRGBO(225, 190, 231, 1)),
-  lightBlue(
-      colorName: "Light Blue", colorCode: Color.fromRGBO(187, 222, 251, 1)),
-  lightGreen(
-      colorName: "Light Green", colorCode: Color.fromRGBO(200, 230, 201, 1)),
-  lightYellow(
-      colorName: "Light Yellow", colorCode: Color.fromRGBO(255, 249, 196, 1)),
-  lightIndigo(
-      colorName: "Light Indigo", colorCode: Color.fromRGBO(197, 202, 233, 1));
+  lightRed(colorName: "Light Red", colorCode: Colors.red),
+  lightPurple(colorName: "Light Purple", colorCode: Colors.purple),
+  lightBlue(colorName: "Light Blue", colorCode: Colors.blue),
+  lightGreen(colorName: "Light Green", colorCode: Colors.green),
+  lightYellow(colorName: "Light Yellow", colorCode: Colors.yellow),
+  lightIndigo(colorName: "Light Indigo", colorCode: Colors.indigo);
 
   final String colorName;
-  final Color? colorCode;
+  final MaterialColor colorCode;
 
   const TaskColor({required this.colorName, required this.colorCode});
 }

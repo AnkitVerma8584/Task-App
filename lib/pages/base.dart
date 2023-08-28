@@ -16,7 +16,7 @@ class BaseScreen extends StatefulWidget {
 }
 
 class _BaseScreenState extends State<BaseScreen> {
-  int selectedIndex = 3;
+  int selectedIndex = 0;
   var screens = const [
     HomePage(),
     CalendarPage(),
