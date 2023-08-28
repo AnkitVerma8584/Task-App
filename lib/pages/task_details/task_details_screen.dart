@@ -78,23 +78,20 @@ class TaskDetailsScreen extends StatelessWidget {
                           Text('Attachments', style: headerStyle),
                           sh12,
                           SizedBox(
-                            height: 50,
-                            child: Flex(
+                            width: double.infinity,
+                            child: Wrap(
+                              spacing: 8,
+                              runSpacing: 8,
                               direction: Axis.horizontal,
                               children: List.generate(
                                   task.attachments.length,
-                                  (index) => Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            0, 0, 8, 0),
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          child: Image.asset(
-                                            task.attachments[index],
-                                            fit: BoxFit.cover,
-                                            height: 50,
-                                            width: 50,
-                                          ),
+                                  (index) => ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: Image.asset(
+                                          task.attachments[index],
+                                          fit: BoxFit.cover,
+                                          height: 50,
+                                          width: 50,
                                         ),
                                       )),
                             ),
