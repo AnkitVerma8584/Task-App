@@ -25,6 +25,7 @@ dependencies:
   time_range_picker: ^2.2.0
   month_year_picker: ^0.3.0+1
   date_picker_timeline: ^1.2.5
+  syncfusion_flutter_calendar: ^22.2.11
 
 dev_dependencies:
   flutter_test:
