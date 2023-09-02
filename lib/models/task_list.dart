@@ -6,6 +6,7 @@ import 'package:task_app/models/task.dart';
 class TaskList extends ChangeNotifier {
   List<Task> taskList = [
     Task(
+      taskId: 1,
       taskName: "Salon App Wireframe",
       taskDescription: "Complete the salon app wireframe",
       startDate: DateTime(2023, 2),
@@ -31,6 +32,7 @@ class TaskList extends ChangeNotifier {
       priority: Priority.high,
     ),
     Task(
+      taskId: 2,
       taskName: "Marketing website",
       taskDescription: "Make the marketing website and host it on hereku",
       startDate: DateTime(2023, 4),

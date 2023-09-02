@@ -1,6 +1,5 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:task_app/common/components/sized_boxes.dart';
 
 class TaskAttachmentList extends StatelessWidget {
   const TaskAttachmentList({super.key});

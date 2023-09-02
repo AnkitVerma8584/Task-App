@@ -34,10 +34,13 @@ class HomeTaskCard extends StatelessWidget {
               ],
             ),
             sh8,
-            Text(
-              task.taskName,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-              textScaleFactor: 1.3,
+            Hero(
+              tag: task.taskId,
+              child: Text(
+                task.taskName,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+                textScaleFactor: 1.3,
+              ),
             ),
             sh8,
             Row(

@@ -258,6 +258,7 @@ class _TaskFormPageState extends State<TaskFormPage> {
       SubmitTaskButton(onSubmitPress: () {
         if (_formKey.currentState!.validate()) {
           Task task = Task(
+            taskId: 3,
             taskName: _controllerMap['task_name']!.text,
             taskDescription: _controllerMap['task_description']!.text,
             startDate: startDate,
