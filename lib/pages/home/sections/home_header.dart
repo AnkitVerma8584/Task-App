@@ -44,8 +44,9 @@ class HomeHeader extends StatelessWidget {
             ],
           ),
         ),
-        GestureDetector(
+        InkWell(
             onTap: () {},
+            borderRadius: BorderRadius.circular(25),
             child: Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
