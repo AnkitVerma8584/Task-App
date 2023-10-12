@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:task_app/models/task_list.dart';
+import 'package:task_app/models/dummy/chat_list.dart';
+import 'package:task_app/models/dummy/task_list.dart';
 import 'package:task_app/pages/base.dart';
 import 'package:task_app/theme/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,10 +9,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:month_year_picker/month_year_picker.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider<TaskList>(
-    create: (_) => TaskList(),
-    child: const MyApp(),
-  ));
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (_) => TaskList()),
+    ChangeNotifierProvider(create: (_) => ChatList()),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

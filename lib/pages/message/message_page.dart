@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:task_app/theme/colors.dart';
+import 'package:provider/provider.dart';
+import 'package:task_app/models/dummy/chat_list.dart';
+import 'package:task_app/pages/message/widgets/chat_card.dart';
+import 'package:task_app/pages/message/widgets/message_tab.dart';
 
 class MessagePage extends StatefulWidget {
   const MessagePage({super.key});
@@ -23,41 +26,10 @@ class _MessagePageState extends State<MessagePage> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              title: const Text(
-                "Message",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              actions: [
-                InkWell(
-                    onTap: () {},
-                    borderRadius: BorderRadius.circular(25),
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25),
-                          color: Colors.grey.withOpacity(0.2)),
-                      child: const Icon(CupertinoIcons.search),
-                    )),
-                const SizedBox(width: 10),
-                InkWell(
-                    onTap: () {},
-                    borderRadius: BorderRadius.circular(25),
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25),
-                          color: Colors.grey.withOpacity(0.2)),
-                      child: const Icon(Icons.edit_square),
-                    )),
-                const SizedBox(width: 10)
-              ],
-            ),
+            appBar: myAppBar(),
             body: Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: Column(
                 children: [
                   SizedBox(
@@ -78,60 +50,51 @@ class _MessagePageState extends State<MessagePage> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  Expanded(
-                      child: ListView(
-                    children: const [ChatCard(), ChatCard()],
+                  Expanded(child: Consumer<ChatList>(
+                    builder: (context, value, child) {
+                      return ListView.builder(
+                          itemCount: value.userChats.length,
+                          itemBuilder: (context, index) =>
+                              ChatCard(userChat: value.userChats[index]));
+                    },
                   ))
                 ],
               ),
             )));
   }
-}
 
-class MessageTab extends StatelessWidget {
-  const MessageTab(
-      {super.key, required this.tabName, required this.isSelected});
-  final String tabName;
-  final bool isSelected;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-      decoration: BoxDecoration(
-          border: Border.all(
-              color:
-                  isSelected ? getColorsScheme(context).primary : Colors.grey,
-              width: isSelected ? 2 : 1),
-          borderRadius: BorderRadius.circular(8)),
-      child: Text(
-        tabName,
-        style: TextStyle(
-            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-            color: isSelected ? getColorsScheme(context).primary : Colors.grey),
+  AppBar myAppBar() {
+    return AppBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      title: const Text(
+        "Message",
+        style: TextStyle(fontWeight: FontWeight.bold),
       ),
-    );
-  }
-}
-
-class ChatCard extends StatelessWidget {
-  const ChatCard({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        leading: ClipRRect(
+      actions: [
+        InkWell(
+            onTap: () {},
             borderRadius: BorderRadius.circular(25),
-            child: Image.asset("assets/users/p1.png")),
-        title: const Text("Leslie Alenxander"),
-        subtitle: const Text("Lets meet"),
-        trailing: const Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [Text("9:45 pm"), Text("6")],
-        ),
-      ),
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                  color: Colors.grey.withOpacity(0.2)),
+              child: const Icon(CupertinoIcons.search),
+            )),
+        const SizedBox(width: 10),
+        InkWell(
+            onTap: () {},
+            borderRadius: BorderRadius.circular(25),
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                  color: Colors.grey.withOpacity(0.2)),
+              child: const Icon(Icons.edit_square),
+            )),
+        const SizedBox(width: 10)
+      ],
     );
   }
 }

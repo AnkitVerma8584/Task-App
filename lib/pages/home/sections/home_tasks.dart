@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:task_app/common/components/sized_boxes.dart';
-import 'package:task_app/models/task_list.dart';
+import 'package:task_app/models/dummy/task_list.dart';
 import 'package:task_app/pages/home/widgets/task_card.dart';
 import 'package:task_app/pages/task_details/task_details_screen.dart';
 

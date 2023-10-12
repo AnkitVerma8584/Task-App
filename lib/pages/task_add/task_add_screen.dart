@@ -6,7 +6,7 @@ import 'package:task_app/common/utils.dart';
 import 'package:task_app/models/enums/priority.dart';
 import 'package:task_app/models/enums/task_colors.dart';
 import 'package:task_app/models/task.dart';
-import 'package:task_app/models/task_list.dart';
+import 'package:task_app/models/dummy/task_list.dart';
 import 'package:task_app/pages/task_add/widgets/submit_button.dart';
 import 'package:task_app/pages/task_add/widgets/task_assign.dart';
 import 'package:task_app/pages/task_add/widgets/task_attachment.dart';
