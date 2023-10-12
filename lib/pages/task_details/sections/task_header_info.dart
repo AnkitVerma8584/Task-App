@@ -19,10 +19,15 @@ class TaskHeaderInformation extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            task.taskName,
-            style: const TextStyle(
-                color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
+          Hero(
+            tag: task.taskId,
+            child: Text(
+              task.taskName,
+              style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold),
+            ),
           ),
           sh24,
           Row(

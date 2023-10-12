@@ -4,6 +4,7 @@ import 'package:task_app/models/enums/priority.dart';
 import 'package:task_app/models/enums/task_colors.dart';
 
 class Task {
+  final int taskId;
   final String taskName, taskDescription;
   final DateTime startDate, endDate;
   final TimeOfDay startTime, endTime;
@@ -16,6 +17,7 @@ class Task {
       "${startTime.formatTimeOfDay()} - ${endTime.formatTimeOfDay()}";
 
   Task({
+    required this.taskId,
     required this.taskName,
     required this.taskDescription,
     required this.startDate,
